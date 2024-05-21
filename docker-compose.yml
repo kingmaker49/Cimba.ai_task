@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  backend-java:
+    build: ./backend-java
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  scala-service:
+    build: ./scala-service
+    ports:
+      - "9000:9000"
+    depends_on:
+      - postgres
+
+  python-service:
+    build: ./python-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  react-website:
+    build: ./react-website
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: your_database
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+    ports:
+      - "5432:5432"
